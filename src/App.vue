@@ -1,30 +1,51 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Navbar :logo="_logo" :desc="_desc" />
+  <router-view class="content" />
+  <Footer />
 </template>
 
+<script>
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    Navbar,
+    Footer,
+  },
+  data() {
+    return {
+      _logo: "/img/logo.png",
+      _desc: "To Do List",
+    };
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  font-family: Helvetica, sans-serif;
+  margin: 0px;
+}
+
+.content {
   text-align: center;
-  color: #2c3e50;
+  color: #084C61;
+  margin-bottom: 500px;
 }
 
-#nav {
-  padding: 30px;
+a {
+  color: #ffc857;
+  text-decoration: none;
+  transition: 250ms;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+a:visited {
+  color: #db3a34;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+a:hover {
+  color: #ffff;
 }
 </style>
