@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
       <router-link to="/sobre">Sobre</router-link>
     </div>
   </div>

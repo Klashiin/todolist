@@ -1,5 +1,5 @@
 <template>
-  <div class="sobre">
-    <h1>Sobre o app</h1>
+  <div class="content">
+    <h1>SOBRE O APP</h1>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <Navbar :logo="_logo" :desc="_desc" />
-  <router-view class="content" />
+  <router-view />
   <Footer />
 </template>
 
@@ -27,18 +27,22 @@ export default {
 * {
   font-family: Helvetica, sans-serif;
   margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 .content {
+  margin: 20px 0px 20px 0px;
+  color: #323031;
+  min-height: 310px;
   text-align: center;
-  color: #084C61;
-  margin-bottom: 500px;
 }
 
 a {
   color: #ffc857;
   text-decoration: none;
-  transition: 250ms;
+  transition: 0.5s;
+  margin: 14px;
 }
 
 a:visited {
@@ -47,5 +51,22 @@ a:visited {
 
 a:hover {
   color: #ffff;
+}
+
+.botao {
+  margin: 2px;
+  padding: 2px;
+  cursor: pointer;
+  border: 2px solid #323031;
+  background-color: #323031;
+  color: #ffc857;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.5s;
+}
+
+.botao:hover {
+  background-color: transparent;
+  color: #323031;
 }
 </style>
