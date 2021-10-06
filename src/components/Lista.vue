@@ -1,13 +1,13 @@
 <template>
-  <Mensagem :msg="_msg" v-show="_msg" />
+  <Mensagem :boxStyle="_boxStyle" :msg="_msg" v-show="_msg" />
   <div v-for="todo in todos" :key="todo.id">
     <div :class="todo.checked ? 'lista stripped' : 'lista'">
       {{ todo.task }}
     </div>
-    <button class="botao" @click="toggle(todo)">
+    <button class="botao" @click="toggleChecked(todo.id, todo)">
       {{ todo.checked ? "Desmarcar" : "Marcar" }}
     </button>
-    <button class="botao">Remover</button>
+    <button @click="deleteTask(todo.id)" class="botao">Remover</button>
   </div>
   <form @submit="newTask">
     <div class="container">
@@ -32,11 +32,11 @@ export default {
       todos: [],
       task: null,
       checked: false,
-      _msg: ""
+      _msg: "",
+      _boxStyle: ""
     };
   },
   methods: {
-    toggle(todo) {},
     async getTodos() {
       const req = await fetch("http://localhost:3000/todos");
       const data = await req.json();
@@ -57,8 +57,31 @@ export default {
       const res = await req.json();
       this.task = "";
       this._msg = "Tarefa adicionada com sucesso.";
+      this._boxStyle = "new-task-box";
       setTimeout(() => this._msg = "", 4000);
+      this.getTodos();
     },
+    async deleteTask (id) {
+        const req = await fetch(`http://localhost:3000/todos/${id}`, {
+          method: "DELETE"
+        }
+      );
+      const res = await req.json();
+      this._msg = "Tarefa removida com sucesso.";
+      this._boxStyle = "delete-task-box";
+      setTimeout(() => this._msg = "", 4000);
+      this.getTodos();
+    },
+    async toggleChecked (id, todo) {
+      const dataJson = JSON.stringify({checked: !todo.checked});
+      const req = await fetch(`http://localhost:3000/todos/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json"},
+        body: dataJson
+      });
+      const res = await req.json();
+      this.getTodos();
+    }
   },
   mounted() {
     this.getTodos();

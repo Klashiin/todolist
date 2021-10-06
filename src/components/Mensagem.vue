@@ -1,5 +1,5 @@
 <template>
-  <div class="msgbox">
+  <div id="msgbox" :class="boxStyle">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
     {{msg}}
   </div>
@@ -10,18 +10,17 @@ export default {
   name: "Mensagem",
   props: {
       msg: String,
+      boxStyle: String
   }
 };
 </script>
 
 <style scoped>
-.msgbox {
+#msgbox {
 margin: auto;
 padding: 20px;
 width: 400px;
 min-height: 40px;
-border-left: #323031 solid 8px;
-background-color: #FFC857;
 box-shadow: 1px 4px 4px #555;
 transition: .5s;
 -webkit-animation: fadeIn 1s;
@@ -34,6 +33,16 @@ left: 50%;
 transform: translatex(-50%);
 overflow: auto;
 display: block;
+}
+
+.new-task-box {
+    border-left: #323031 solid 8px;
+    background-color: #FFC857;
+}
+
+.delete-task-box {
+    border-left: #DB3A34 solid 8px;
+    background-color: #ffffff;
 }
 
 .closebtn {
