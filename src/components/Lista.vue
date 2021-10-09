@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     async getTodos() {
-      const req = await fetch("http://localhost:3000/todos");
+      const req = await fetch("https://klashiin-todolist.herokuapp.com/todos");
       const data = await req.json();
       this.todos = data;
     },
@@ -49,7 +49,7 @@ export default {
         checked: this.checked,
       };
       const dataJson = JSON.stringify(data);
-      const req = await fetch("http://localhost:3000/todos", {
+      const req = await fetch("https://klashiin-todolist.herokuapp.com/todos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: dataJson,
@@ -62,7 +62,7 @@ export default {
       this.getTodos();
     },
     async deleteTask (id) {
-        const req = await fetch(`http://localhost:3000/todos/${id}`, {
+        const req = await fetch(`https://klashiin-todolist.herokuapp.com/todos/${id}`, {
           method: "DELETE"
         }
       );
@@ -74,7 +74,7 @@ export default {
     },
     async toggleChecked (id, todo) {
       const dataJson = JSON.stringify({checked: !todo.checked});
-      const req = await fetch(`http://localhost:3000/todos/${id}`, {
+      const req = await fetch(`https://klashiin-todolist.herokuapp.com/todos/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json"},
         body: dataJson
