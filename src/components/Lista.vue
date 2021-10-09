@@ -83,7 +83,7 @@ export default {
       this.getTodos();
     }
   },
-  mounted() {
+  async mounted() {
     this.getTodos();
   },
 };
