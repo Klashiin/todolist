@@ -14,24 +14,18 @@
       <label for="newtask">Adicionar Tarefa:</label>
     </div>
     <div class="container">
-      <input
-        type="text"
-        id="newtask"
-        name="newtask"
-        v-model="task"
-        placeholder="Adicionar nova tarefa"
-      />
+      <input type="text" id="newtask" name="newtask" v-model="task" placeholder="Adicionar nova tarefa" />
       <input type="submit" class="botao" value="Add" />
     </div>
   </form>
 </template>
 
 <script>
-import Mensagem from "./Mensagem.vue";
+import Mensagem from "./Mensagem.vue"
 export default {
   name: "Lista",
   components: {
-    Mensagem,
+    Mensagem
   },
   data() {
     return {
@@ -39,7 +33,7 @@ export default {
       task: null,
       checked: false,
       _msg: "",
-      _boxStyle: "",
+      _boxStyle: ""
     };
   },
   methods: {
@@ -64,71 +58,32 @@ export default {
       this.task = "";
       this._msg = "Tarefa adicionada com sucesso.";
       this._boxStyle = "new-task-box";
-      setTimeout(() => (this._msg = ""), 4000);
+      setTimeout(() => this._msg = "", 4000);
       this.getTodos();
     },
-    async deleteTask(id) {
-      const req = await fetch(
-        `https://klashiin-todolist.herokuapp.com/todos/${id}`,
-        {
-          method: "DELETE",
+    async deleteTask (id) {
+        const req = await fetch(`https://klashiin-todolist.herokuapp.com/todos/${id}`, {
+          method: "DELETE"
         }
       );
       const res = await req.json();
       this._msg = "Tarefa removida com sucesso.";
       this._boxStyle = "delete-task-box";
-      setTimeout(() => (this._msg = ""), 4000);
+      setTimeout(() => this._msg = "", 4000);
       this.getTodos();
     },
-    async toggleChecked(id, todo) {
-      const dataJson = JSON.stringify({ checked: !todo.checked });
-      const req = await fetch(
-        `https://klashiin-todolist.herokuapp.com/todos/${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: dataJson,
-        }
-      );
-      const res = await req.json();
-      this.getTodos();
-    },
-    async generateKey() {
-      const key = Math.random() * (9999 - 1000) + 1000;
-      const data = {
-        key: [
-          {
-            todos: [
-              {
-                id: 1,
-                task: "Levar o cachorro pra passear",
-                checked: false,
-              },
-              {
-                id: 2,
-                task: "Botar a roupa na secadora",
-                checked: false,
-              },
-              {
-                id: 3,
-                task: "Tirar o lixo",
-                checked: false,
-              },
-            ],
-          },
-        ],
-      };
-      const dataJson = JSON.stringify(data);
-      const req = await fetch("https://klashiin-todolist.herokuapp.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: dataJson,
+    async toggleChecked (id, todo) {
+      const dataJson = JSON.stringify({checked: !todo.checked});
+      const req = await fetch(`https://klashiin-todolist.herokuapp.com/todos/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json"},
+        body: dataJson
       });
       const res = await req.json();
-    },
+      this.getTodos();
+    }
   },
   async mounted() {
-    this.generateKey();
     this.getTodos();
   },
 };
@@ -144,7 +99,7 @@ export default {
 }
 
 .container {
-  margin: 10px 0px 5px 0px;
+    margin: 10px 0px 5px 0px;
 }
 
 #newtask {
